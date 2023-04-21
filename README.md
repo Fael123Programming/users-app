@@ -6,4 +6,4 @@
 # 
 ![Users](./assets/users.png)
 # 
-![Filter users](./assets/filter_users.png)
+![Filter user](./assets/filter_user.png)
