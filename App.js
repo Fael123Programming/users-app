@@ -1,12 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { 
+  StyleSheet, 
+  SafeAreaView,
+} from 'react-native';
+import { LoadingIndicator } from './components/LoadingIndicator';
+import { UserList } from './components/UserList';
+import { getUsers } from './service';
 
 export default function App() {
+  const [users, setUsers] = useState([]);
+  const [isLoadingUsers, setLoadingUsers] = useState(true);
+
+  useEffect(() => {
+    getUsers((users) => setUsers(users));
+    setTimeout(()=> {
+      setLoadingUsers(false);
+    }, 2000);
+  }, []); // DidMount
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+        <SafeAreaView style={styles.container}>
+          { isLoadingUsers ? <LoadingIndicator/> : <UserList data={users}/> }
+        </SafeAreaView>
   );
 }
 
